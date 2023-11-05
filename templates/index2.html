@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reddit Search</title>
+        <script
+            src="https://unpkg.com/htmx.org@1.9.7"
+            integrity="sha384-EAzY246d6BpbWR7sQ8+WEm40J8c3dHFsqC58IgPlh4kMbRRI6P6WA+LA/qGAyAu8"
+            crossorigin="anonymous"
+        ></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="static/gamble.js"></script>
+        <style>
+            :root {
+                color-scheme: light;
+            }
+
+
+        </style>  
+        <script>
+            tailwind.config = {
+                daisyui: {
+                themes: [
+                    {
+                    mytheme: {
+                        'range-primary': '#4299e1', // bg-blue-500
+                        // ... other color settings
+                    },
+                    },
+                ],
+                },
+            }
+        </script>  
+    </head>
+    <body
+        class="
+            flex flex-col
+            items-center
+            h-screen
+            w-full
+            bg-[#181e30]
+        "
+    >   <img class="scale-[.5]" src="static/logo.png"></img>
+        <h1>Real Answers Real People Real Search</h1>
+        <form id="searchForm" class="flex flex-row justify-center" hx-post="/query" hx-target="#result">
+                <input
+                type="search"
+                name="search"
+                placeholder="Search for something new...."
+                class="
+                    w-96
+                    p-2
+                    text-black
+                    !bg-white-200
+                    rounded-l-md
+                    border-r-0
+                    outline-none
+                "
+            />
+
+            <input
+                type="hidden"
+                name="numberValue"
+                id="hiddenNumberInput"
+                value="1"
+                /> 
+            <button
+                type="submit"
+                id="searchButton" 
+                class="
+                    w-fit
+                    p-2
+                    text-white
+                    bg-blue-500
+                    border border-l-0
+                    rounded-r-md
+                "
+            >
+                <img src="static/search.svg"></img>
+            </button>
+        </form>   
+        <div class="mt-1 flex flex-row items-center space-x-4">
+            <h2 class="text-white-100 font-bold">Enter number of Reddit posts to search</h2>
+            <input
+                type="number"
+                id="numberInput"
+                min="1"
+                max="10"
+                value="1"
+                class="
+                    text-white
+                    w-16
+                    text-center
+                    bg-transparent
+                    border-b-2
+                    border-blue-500
+                    focus:border-blue-600
+                    focus:outline-none
+                    hover:border-blue-600
+                    transition-colors
+                    duration-200
+                "
+                placeholder="1-10"
+                onchange="updateHiddenInput()" 
+            />
+        </div>
+
+        <button
+                class="
+                    bg-green-500
+                    hover:bg-green-600
+                    text-white
+                    py-2
+                    px-4
+                    rounded
+                    mt-1
+                "
+            >
+                Take a Gamble
+            </button>
+        
+        <div id="result" hx-get="/loading" hx-trigger="htmx:beforeRequest from:#searchForm"></div>
+
+        <!-- <h1>Search</h1> -->
+
+        <!-- <form hx-post="/query" hx-target="#output">
+        <div class="form-group">
+            <input class="form-control" type="search" 
+            name="search" 
+            placeholder="Begin Typing To Search Users..."
+            >
+        </div>
+        <button class="btn">Submit</button>
+    </form>
+
+    <p id="output">Loading your information</p> -->
+    <script>
+        function updateHiddenInput() {
+            var numberInputValue = document.getElementById('numberInput').value;
+            document.getElementById('hiddenNumberInput').value = numberInputValue;
+        }
+    </script>
+    </body>
+</html>

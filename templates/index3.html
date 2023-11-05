@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.7" integrity="sha384-EAzY246d6BpbWR7sQ8+WEm40J8c3dHFsqC58IgPlh4kMbRRI6P6WA+LA/qGAyAu8" crossorigin="anonymous"></script>
+    <title>Reddit Search</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form hx-post="/query" hx-target="#output">
+        <div class="form-group">
+            <input class="form-control" type="search" 
+            name="search" 
+            placeholder="Begin Typing To Search Users..."
+            >
+        </div>
+        <button class="btn">Submit</button>
+    </form>
+    <p id="output">Loading your information</p>
+    
+</body>
+</html>
